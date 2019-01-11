@@ -6,9 +6,12 @@ class Application(tk.Frame):
         super().__init__(master)
         #initiate tk functions you will use here.
         self.master = master
-        self.pack()
+        #self.pack()
         self.grid()
         self.create_widgets()
+    
+    def submit(self):
+        print("Initializing Trade Analysis. Please wait:")
 
     def create_widgets(self):
         self.title = tk.Label(self)
@@ -25,11 +28,16 @@ class Application(tk.Frame):
         self.player2_inp = tk.Entry(self)
         self.player2_inp.grid(row=2,column=2)
 
+        self.submit = tk.Button(
+            self, text = "SUBMIT", fg= "green",command = self.submit
+        )
+        self.submit.grid(row=3,column=2)
+
         self.quit = tk.Button(self, text="QUIT", fg="red",
                               command=self.master.destroy)
-        self.quit.grid(row=3)
+        self.quit.grid(row=4)
 
-
+    
 
 root = tk.Tk()
 app = Application(master=root)
