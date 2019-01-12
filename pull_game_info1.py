@@ -46,7 +46,9 @@ def create_DataFrames(gamelogs,stats_of_interest):
         player_dfs[DataFrame] = player_dfs[DataFrame][stats_of_interest]
     
     return player_dfs, player_dict
+
 input_names = ["Jae Crowder","Gordon Hayward","Garrett Temple"]
 input_names = list_into_string(input_names)
 stats_of_interest = ["Reb","Ast","Pts","Tov","Stl","Blk","FgPct","FtPct","Fg3PtMade"]
-print(pull_game_logs(input_names, stats_of_interest))
+#gamelogs = pull_game_logs(input_names,stats_of_interest)
+#dfs, player_dict = create_DataFrames(gamelogs,stats_of_interest)
