@@ -94,20 +94,76 @@ def compare_player_contribution(normalized_dfs, players_dict,stats_of_interest):
 
     df = pd.DataFrame(my_dict)
     df = df.sort_values(["Last5_Avg",'Last10_Avg','Avg_Contrib'],ascending=False)
+    df.set_index("Player_ID",inplace=True)
     cat_winners = pd.DataFrame(cat_win_dict)
+    cat_winners.set_index("Category",inplace=True)
 
     return df , cat_winners
 
-def compare_stats(dfs,players_dict,stats_of_interest):
-    pass
+def compare_stats_average(dfs,players_dict,stats_of_interest):
+    print("Comparing players across categories")
+    my_dict = {
+        "Category": stats_of_interest
+    }
+    players_stats = {}   
+    for player_id in players_dict:
+        curr_player_stat = []
+        for stat in stats_of_interest:
+            if player_id in players_stats:
+                players_stats[player_id].append(dfs[player_id][stat].mean())
+            else:
+                players_stats[player_id] = [dfs[player_id][stat].mean()]
+        my_dict[players_dict[player_id]] = players_stats[player_id]
+    
+    cat_stat_df = pd.DataFrame(my_dict)
+    cat_stat_df.set_index("Category",inplace=True)
+
+    #Building table 2 winners per category
+    winners = []
+    for stat in stats_of_interest:
+        winners.append(cat_stat_df.loc[stat].idxmax())
+    cat_winner_df  = pd.DataFrame({
+        "Category":stats_of_interest,
+        "Winner":winners
+    })
+    cat_winner_df.set_index("Category",inplace=True)
+
+    #Building table 3 win count
+    players = []
+    winners = list(cat_winner_df["Winner"])
+    win_count = []
+    for player_id in players_dict:
+        players.append(players_dict[player_id])
+        win_count.append(winners.count(players_dict[player_id]))
+    cat_win_count_df = pd.DataFrame({
+        "Player":players,
+        "Category_wins":win_count
+    })
+    cat_win_count_df.set_index("Player",inplace=True)
+    cat_win_count_df.sort_values("Category_wins",inplace=True,ascending=False)
+
+    return cat_stat_df, cat_winner_df,cat_win_count_df
+    
+   
+
+
     
 dfs, players_dict = read_from_results(path, stats_of_interest)
+#Prenormalization category comparison
+cat_stat_df, cat_winner_df,cat_win_count_df= compare_stats_average(dfs,players_dict,stats_of_interest)
+print(cat_stat_df)
+print("\n")
+print(cat_winner_df)
+print("\n")
+print(cat_win_count_df)
+
+
 normalized_dfs = normalize_stats_sum(dfs,players_dict,stats_of_interest)
 contrib_df, contrib_winnder_df = compare_player_contribution(normalized_dfs,players_dict,stats_of_interest)
-
-print(contrib_winnder_df)
-print("\n")
 print(contrib_df)
+print("\n")
+print(contrib_winnder_df)
+
 
 print("\n"*2)
 print("*"*10+"ANALYSIS COMPLETE IN DEVELOPMENT"+"*"*10)
