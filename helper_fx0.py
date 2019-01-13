@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 def list_into_string(names):
     my_str=""
     for i,name  in enumerate(names):
@@ -14,8 +17,16 @@ def pull_players_dict(games):
             my_dict[game["player"]["ID"]] =game["player"]["FirstName"] +" "+game["player"]["LastName"] 
     return my_dict
 
+"""
+    normalize_stats_sum
+Currently this amends the players_dfs into a normalized df.
+The purpose of this would be to be able to summarize the 9 category contribution into a single number 
+    Much like team points for a real game.
+At the current stats this amends the dfs. Need to change this so we create a new df.
+    -If we ammend the df we cannot look back and change. 
+"""
 def normalize_stats_sum(player_dfs,player_dict,stats_of_interest):
-    print("Normalizing stats in each game for comparison \n")
+    print("Normalizing stats in each game for comparison at a single number \n")
     list_of_dfs = [player_dfs[each] for each in player_dict]
     main_df = pd.concat(list_of_dfs,axis=0)
     
