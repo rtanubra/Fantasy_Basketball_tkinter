@@ -35,8 +35,6 @@ class Application(tk.Frame):
         print(f"Running Analysis for {input_names}")
         print(f"Categories of interest {stats_of_interest}")
         cat_stat_df, cat_winner_df,cat_win_count_df,cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10,cat_win_count_df10,contrib_df, contrib_winner_df = run_functs(input_names,stats_of_interest)
-
-
     
     def create_widgets(self):
         self.title = tk.Label(self)
@@ -58,17 +56,18 @@ class Application(tk.Frame):
         self.player3_inp = tk.Entry(self)
         self.player3_inp.grid(row=3, column=2)
 
-        self.status_label = tk.Label(self,text="Prepared to Analyze provide at least 2 players to compare")
-        self.status_label.grid(row=4,columnspan=3)
-
         self.submit = tk.Button(
             self, text = "SUBMIT", fg= "green",command = self.submit
         )
-        self.submit.grid(row=5,column=2)
+        self.submit.grid(row=5,column=2) 
 
         self.quit = tk.Button(self, text="QUIT", fg="red",
                               command=self.master.destroy)
         self.quit.grid(row=6)
+
+        #******* STATUS BAR *******
+        self.status = tk.Label(self,text="Ready to Analyze",bd=1,relief="sunken",anchor="w")
+        self.status.grid(row=8)
 
     
 
