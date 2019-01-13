@@ -101,7 +101,10 @@ def compare_stats_last_games(dfs,players_dict,stats_of_interest,numb_games=None)
     #Building table 2 winners per category
     winners = []
     for stat in stats_of_interest:
-        winners.append(cat_stat_df.loc[stat].idxmax())
+        if stat != "Tov":
+            winners.append(cat_stat_df.loc[stat].idxmax())
+        else:
+            winners.append(cat_stat_df.loc[stat].idxmin())
     cat_winner_df  = pd.DataFrame({
         "Category":stats_of_interest,
         "Winner":winners
