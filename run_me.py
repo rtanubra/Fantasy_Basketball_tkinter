@@ -33,13 +33,25 @@ def run_functs(input_names,stats_of_interest,number_games=None):
     print(cat_win_count_df10)
     print("\n")
     print(cat_winner_df10)
+    print("LAST 5 GAMES")
+    print(cat_win_count_df5)
+    print("\n")
+    print(cat_winner_df5)
+    print("LAST Season Average")
+    print(cat_win_count_df)
+    print("\n")
+    print(cat_winner_df)
+    print("\n")
+    print("ANALYZING CONTRIBUTIONS AS SINGLE NUMBER")
+    print(contrib_df)
+    print("\n")
     print(contrib_winner_df)
     return cat_stat_df, cat_winner_df,cat_win_count_df,cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10,cat_win_count_df10,contrib_df, contrib_winner_df
 
 """
 These inputs will be provided by tkinter GUI from the person
 """
-input_names = ["Taj Gibson", "Nikola Mirotic"]
+input_names = ["Taj Gibson", "Davis Bertans"]
 input_names = list_into_string(input_names)
 stats_of_interest = ["Reb","Ast","Pts","Tov","Stl","Blk","FgPct","FtPct","Fg3PtMade"]
 
