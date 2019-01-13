@@ -37,7 +37,8 @@ def run_functs(input_names,stats_of_interest,number_games=None):
     print(cat_win_count_df5)
     print("\n")
     print(cat_winner_df5)
-    print("LAST Season Average")
+    print("\n")
+    print("THIS Season Average")
     print(cat_win_count_df)
     print("\n")
     print(cat_winner_df)
@@ -50,9 +51,10 @@ def run_functs(input_names,stats_of_interest,number_games=None):
 
 """
 These inputs will be provided by tkinter GUI from the person
-"""
+
 input_names = ["Taj Gibson", "Davis Bertans"]
 input_names = list_into_string(input_names)
 stats_of_interest = ["Reb","Ast","Pts","Tov","Stl","Blk","FgPct","FtPct","Fg3PtMade"]
 
-cat_stat_df, cat_winner_df,cat_win_count_df,cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10,cat_win_count_df10,contrib_df, contrib_winner_df = run_functs(input_names,stats_of_interest)
+#cat_stat_df, cat_winner_df,cat_win_count_df,cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10,cat_win_count_df10,contrib_df, contrib_winner_df = run_functs(input_names,stats_of_interest)
+"""
