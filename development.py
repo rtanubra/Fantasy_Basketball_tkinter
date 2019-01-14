@@ -7,6 +7,7 @@ from helper_fx0 import *
 import pandas as pd
 
 path = "results/player_gamelogs-nba-2018-2019-regular.json"
+path1 = "results/LBJ_SC.json"
 stats_of_interest = ["Reb","Ast","Pts","Tov","Stl","Blk","FgPct","FtPct","Fg3PtMade"]
 input_names = ["Jae Crowder","Gordon Hayward","Garrett Temple"]
 input_names = list_into_string(input_names)
@@ -182,10 +183,11 @@ def compare_stats_last_games(dfs,players_dict,stats_of_interest,numb_games=None)
 
 
     
-dfs, players_dict = read_from_results(path, stats_of_interest)
+##dfs, players_dict = read_from_results(path1, stats_of_interest)
 #Prenormalization category comparison averages 
 
-cat_stat_df, cat_winner_df,cat_win_count_df= compare_stats_last_games(dfs,players_dict,stats_of_interest)
+##cat_stat_df, cat_winner_df,cat_win_count_df= compare_stats_last_games(dfs,players_dict,stats_of_interest)
+"""
 print("\nANALYZING CATEGORIES SEASON AVERAGE\n")
 print(cat_stat_df)
 print("\n")
@@ -210,10 +212,13 @@ print("\n")
 print(cat_winner_df10)
 print("\n")
 print(cat_win_count_df10)
+"""
 
 #Beyond this point all dataframes become normalized to analyze as a whole.
-normalized_dfs = normalize_stats_sum(dfs,players_dict,stats_of_interest)
-contrib_df, contrib_winner_df = compare_player_contribution(normalized_dfs,players_dict,stats_of_interest)
+##normalized_dfs = normalize_stats_sum(dfs,players_dict,stats_of_interest)
+##contrib_df, contrib_winner_df = compare_player_contribution(normalized_dfs,players_dict,stats_of_interest)
+
+"""
 print(contrib_df)
 print("\n")
 print(contrib_winner_df)
@@ -221,3 +226,13 @@ print(contrib_winner_df)
 
 print("\n"*2)
 print("*"*10+"ANALYSIS COMPLETE IN DEVELOPMENT"+"*"*10)
+"""
+
+def run_this_development():
+    dfs, players_dict = read_from_results(path1, stats_of_interest)
+    cat_stat_df, cat_winner_df,cat_win_count_df= compare_stats_last_games(dfs,players_dict,stats_of_interest)
+    cat_stat_df5, cat_winner_df5,cat_win_count_df5 = compare_stats_last_games(dfs,players_dict,stats_of_interest,5)
+    cat_stat_df10, cat_winner_df10, cat_win_count_df10 = compare_stats_last_games(dfs,players_dict,stats_of_interest,number)
+    normalized_dfs = normalize_stats_sum(dfs,players_dict,stats_of_interest)
+    contrib_df, contrib_winner_df = compare_player_contribution(normalized_dfs,players_dict,stats_of_interest)
+    return cat_stat_df, cat_winner_df,cat_win_count_df, cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10, cat_win_count_df10,contrib_df, contrib_winner_df

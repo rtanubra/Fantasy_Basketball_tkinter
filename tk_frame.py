@@ -8,6 +8,8 @@ import pandas as pd
 import numpy as np
 from ohmysportsfeedspy import MySportsFeeds
 
+from frame1_category import *
+
 
 class MainApplication(tk.Frame):
     def __init__(self, master=None):
