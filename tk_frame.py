@@ -9,6 +9,8 @@ import numpy as np
 from ohmysportsfeedspy import MySportsFeeds
 
 from frame1_category import *
+#============Keep below if you want to prepopulate analysis on start=====================#
+from development import *
 
 
 class MainApplication(tk.Frame):
@@ -63,7 +65,8 @@ class MainApplication(tk.Frame):
 #==========================LEFT f1 category breakdown========================   
     def create_widgets_f1(self,frame1):
         #this will create widgets to compare category stuff
-        pass
+        cat_stat_df, cat_winner_df,cat_win_count_df, cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10, cat_win_count_df10,contrib_df, contrib_winner_df = run_this_development()
+        initiate_frame1_on_start(cat_stat_df, cat_winner_df,cat_win_count_df, cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10, cat_win_count_df10,contrib_df, contrib_winner_df,frame1)
     
 #==========================RIGHT f2 contribution points breakdown======================== 
     def create_widgets_f2(self,frame2):

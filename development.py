@@ -232,7 +232,7 @@ def run_this_development():
     dfs, players_dict = read_from_results(path1, stats_of_interest)
     cat_stat_df, cat_winner_df,cat_win_count_df= compare_stats_last_games(dfs,players_dict,stats_of_interest)
     cat_stat_df5, cat_winner_df5,cat_win_count_df5 = compare_stats_last_games(dfs,players_dict,stats_of_interest,5)
-    cat_stat_df10, cat_winner_df10, cat_win_count_df10 = compare_stats_last_games(dfs,players_dict,stats_of_interest,number)
+    cat_stat_df10, cat_winner_df10, cat_win_count_df10 = compare_stats_last_games(dfs,players_dict,stats_of_interest,10)
     normalized_dfs = normalize_stats_sum(dfs,players_dict,stats_of_interest)
     contrib_df, contrib_winner_df = compare_player_contribution(normalized_dfs,players_dict,stats_of_interest)
     return cat_stat_df, cat_winner_df,cat_win_count_df, cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10, cat_win_count_df10,contrib_df, contrib_winner_df
