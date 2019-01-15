@@ -9,6 +9,7 @@ import numpy as np
 from ohmysportsfeedspy import MySportsFeeds
 
 from frame1_category import *
+from frame2_contribution import *
 #============Keep below if you want to prepopulate analysis on start=====================#
 from development import *
 
@@ -30,8 +31,8 @@ class MainApplication(tk.Frame):
         self.f2.pack(side="right")
         
         self.create_widgets_Tops(self.Tops)
-        self.create_widgets_f1(self.f1)
-        self.create_widgets_f2(self.f2)
+        self.create_widgets_f1_f2_start(self.f1,self.f2)
+        #self.create_widgets_f2(self.f2)
 
 #==========================TOP is name input========================
     def create_widgets_Tops(self,frame):
@@ -64,7 +65,7 @@ class MainApplication(tk.Frame):
         self.quit.grid(row=4,column=2)
 
 #==========================LEFT f1 category breakdown========================   
-    def create_widgets_f1(self,frame1):
+    def create_widgets_f1_f2_start(self,frame1,frame2):
         #this will create widgets to compare category stuff
         cat_stat_df, cat_winner_df,cat_win_count_df, cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10, cat_win_count_df10,contrib_df, contrib_winner_df = run_this_development()
         initiate_frame1_on_start(
@@ -72,6 +73,11 @@ class MainApplication(tk.Frame):
             cat_stat_df5, cat_winner_df5,cat_win_count_df5,
             cat_stat_df10, cat_winner_df10, cat_win_count_df10,
             contrib_df, contrib_winner_df,frame1,stats_of_interest)
+        initiate_frame2_on_start(
+            cat_stat_df, cat_winner_df,cat_win_count_df, 
+            cat_stat_df5, cat_winner_df5,cat_win_count_df5,
+            cat_stat_df10, cat_winner_df10, cat_win_count_df10,
+            contrib_df, contrib_winner_df,frame2,stats_of_interest)
     
 #==========================RIGHT f2 contribution points breakdown======================== 
     def create_widgets_f2(self,frame2):

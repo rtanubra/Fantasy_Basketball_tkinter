@@ -1,5 +1,6 @@
 import tkinter as tk
 import pandas as pd
+
 def frame1_header(frame,p1,p2,p3,row_number):
     objects = []
     head1 = tk.Label(frame,text="Category",font=("ariel",15,"bold"),bd=8)
@@ -62,16 +63,27 @@ def initiate_frame1_on_start(
     cat_stat_df10, cat_winner_df10, cat_win_count_df10,
     contrib_df, contrib_winner_df,frame,stats_of_interest):
     players = list(cat_stat_df.columns)
+    
     header = frame1_header(frame,players[0],players[1],players[2],0)
     cats = {}
+
     for i,stat in enumerate(stats_of_interest):
         stat_vals = list(cat_stat_df.loc[stat])
         if stat != "Tov":
             cats[stat] = create_row(frame,stat,round(stat_vals[0],2),round(stat_vals[1],2),round(stat_vals[2],2),players[stat_vals.index(max(stat_vals))],i+1)
         else:
             cats[stat] = create_row(frame,stat,round(stat_vals[0],2),round(stat_vals[1],2),round(stat_vals[2],2),players[stat_vals.index(min(stat_vals))],i+1)
+    
     header_sum= frame1_summary_header(frame, 11)
-    for i,player in enumerate(players):
-        create_row_summary(frame,player,cat_win_count_df.loc[player,"Category_wins"],i+12)
+    players_sum = {}
 
+    for i,player in enumerate(players):
+        players_sum[player] = create_row_summary(frame,player,cat_win_count_df.loc[player,"Category_wins"],i+12)
+    
+    button_average = tk.Button(frame,text="Season-Average",font=("ariel",15,"bold"))
+    button_average.grid(row=12,column=0)
+    button_last_5 = tk.Button(frame,text="Last 5 Games",font=("ariel",15,"bold"))
+    button_last_5.grid(row=13,column=0)
+    button_last_10 = tk.Button(frame,text="Last 10 games",font=("ariel",15,"bold"))
+    button_last_10.grid(row=14,column=0)
 
