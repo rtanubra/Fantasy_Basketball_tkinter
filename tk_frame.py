@@ -14,6 +14,7 @@ from development import *
 
 
 class MainApplication(tk.Frame):
+    stats_of_interest = ["Reb","Ast","Pts","Tov","Stl","Blk","FgPct","FtPct","Fg3PtMade"]
     def __init__(self, master=None):
         super().__init__(master)
         #initiate tk functions you will use here.
@@ -66,7 +67,11 @@ class MainApplication(tk.Frame):
     def create_widgets_f1(self,frame1):
         #this will create widgets to compare category stuff
         cat_stat_df, cat_winner_df,cat_win_count_df, cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10, cat_win_count_df10,contrib_df, contrib_winner_df = run_this_development()
-        initiate_frame1_on_start(cat_stat_df, cat_winner_df,cat_win_count_df, cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10, cat_win_count_df10,contrib_df, contrib_winner_df,frame1)
+        initiate_frame1_on_start(
+            cat_stat_df, cat_winner_df,cat_win_count_df, 
+            cat_stat_df5, cat_winner_df5,cat_win_count_df5,
+            cat_stat_df10, cat_winner_df10, cat_win_count_df10,
+            contrib_df, contrib_winner_df,frame1,stats_of_interest)
     
 #==========================RIGHT f2 contribution points breakdown======================== 
     def create_widgets_f2(self,frame2):

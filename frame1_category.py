@@ -21,17 +21,31 @@ def frame1_header(frame,p1,p2,p3,row_number):
 
     return objects
 
-def create_row(cat,s1,s2,s3,winner,row_number):
+def frame1_summary_header(frame,row_number):
+    head_sum_1 = tk.Label(frame,text="Player",font=("ariel",15,"bold"),bd=8)
+    head_sum_1.grid(row=row_number,column=2)
+    head_sum_2 = tk.Label(frame,text="Category Win Count",font=("ariel",15,"bold"),bd=8)
+    head_sum_2.grid(row=row_number,column=3)
+    return [head_sum_1,head_sum_2]
+
+def create_row_summary(frame,p,count,row_number):
+    obj1 = tk.Label(frame,text=p,bd=8,bg="powder blue")
+    obj1.grid(row=row_number,column=2)
+    obj2 = tk.Label(frame,text=count,bd=8,bg="powder blue")
+    obj2.grid(row=row_number,column=3)
+    return [obj1,obj2]
+
+def create_row(frame,cat,s1,s2,s3,winner,row_number):
     objects = []
-    obj1 = tk.Label(frame,text=cat,bd=8)
+    obj1 = tk.Label(frame,text=cat,bd=8,bg="powder blue")
     obj1.grid(row=row_number,column=0)
-    obj2 = tk.Label(frame,text=str(s1),bd=8)
+    obj2 = tk.Label(frame,text=str(s1),bd=8,bg="powder blue")
     obj2.grid(row=row_number,column=1)
-    obj3= tk.Label(frame,text=str(s2),bd=8)
+    obj3= tk.Label(frame,text=str(s2),bd=8,bg="powder blue")
     obj3.grid(row=row_number,column=2)
-    obj4= tk.Label(frame,text=str(s3),bd=8)
+    obj4= tk.Label(frame,text=str(s3),bd=8,bg="powder blue")
     obj4.grid(row=row_number,column=3)
-    obj5= tk.Label(frame,text=str(winner),bd=8)
+    obj5= tk.Label(frame,text=str(winner),bd=8,bg="powder blue")
     obj5.grid(row=row_number,column=4)
 
     objects.append(obj1)
@@ -42,7 +56,22 @@ def create_row(cat,s1,s2,s3,winner,row_number):
 
     return objects 
 
-def initiate_frame1_on_start(cat_stat_df, cat_winner_df,cat_win_count_df, cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10, cat_win_count_df10,contrib_df, contrib_winner_df,frame):
+def initiate_frame1_on_start(
+    cat_stat_df, cat_winner_df,cat_win_count_df, 
+    cat_stat_df5, cat_winner_df5,cat_win_count_df5,
+    cat_stat_df10, cat_winner_df10, cat_win_count_df10,
+    contrib_df, contrib_winner_df,frame,stats_of_interest):
     players = list(cat_stat_df.columns)
+    header = frame1_header(frame,players[0],players[1],players[2],0)
+    cats = {}
+    for i,stat in enumerate(stats_of_interest):
+        stat_vals = list(cat_stat_df.loc[stat])
+        if stat != "Tov":
+            cats[stat] = create_row(frame,stat,round(stat_vals[0],2),round(stat_vals[1],2),round(stat_vals[2],2),players[stat_vals.index(max(stat_vals))],i+1)
+        else:
+            cats[stat] = create_row(frame,stat,round(stat_vals[0],2),round(stat_vals[1],2),round(stat_vals[2],2),players[stat_vals.index(min(stat_vals))],i+1)
+    header_sum= frame1_summary_header(frame, 11)
+    for i,player in enumerate(players):
+        create_row_summary(frame,player,cat_win_count_df.loc[player,"Category_wins"],i+12)
 
-    header = frame1_header(frame,players[0],players[1],"Player 3",0)
+

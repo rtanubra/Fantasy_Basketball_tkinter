@@ -8,6 +8,7 @@ import pandas as pd
 
 path = "results/player_gamelogs-nba-2018-2019-regular.json"
 path1 = "results/LBJ_SC.json"
+path2 = "results/SC_KD_LBJ.json"
 stats_of_interest = ["Reb","Ast","Pts","Tov","Stl","Blk","FgPct","FtPct","Fg3PtMade"]
 input_names = ["Jae Crowder","Gordon Hayward","Garrett Temple"]
 input_names = list_into_string(input_names)
@@ -158,7 +159,10 @@ def compare_stats_last_games(dfs,players_dict,stats_of_interest,numb_games=None)
     #Building table 2 winners per category
     winners = []
     for stat in stats_of_interest:
-        winners.append(cat_stat_df.loc[stat].idxmax())
+        if stat != "Tov":
+            winners.append(cat_stat_df.loc[stat].idxmax())
+        else:
+            winners.append(cat_stat_df.loc[stat].idxmin())
     cat_winner_df  = pd.DataFrame({
         "Category":stats_of_interest,
         "Winner":winners
@@ -229,7 +233,7 @@ print("*"*10+"ANALYSIS COMPLETE IN DEVELOPMENT"+"*"*10)
 """
 
 def run_this_development():
-    dfs, players_dict = read_from_results(path1, stats_of_interest)
+    dfs, players_dict = read_from_results(path2, stats_of_interest)
     cat_stat_df, cat_winner_df,cat_win_count_df= compare_stats_last_games(dfs,players_dict,stats_of_interest)
     cat_stat_df5, cat_winner_df5,cat_win_count_df5 = compare_stats_last_games(dfs,players_dict,stats_of_interest,5)
     cat_stat_df10, cat_winner_df10, cat_win_count_df10 = compare_stats_last_games(dfs,players_dict,stats_of_interest,10)
