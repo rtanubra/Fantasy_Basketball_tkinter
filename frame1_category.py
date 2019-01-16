@@ -21,6 +21,11 @@ def frame1_header(frame,p1,p2,p3,row_number):
     objects.append(head5)
 
     return objects
+def frame1_header_update(frame,p1,p2,p3,header_obj):
+    header_obj[1]["text"] = p1
+    header_obj[2]["text"] = p2
+    header_obj[3]["text"] = p3
+    return header_obj
 
 def frame1_summary_header(frame,row_number):
     head_sum_1 = tk.Label(frame,text="Player",font=("ariel",15,"bold"),bd=8)
@@ -64,9 +69,8 @@ def initiate_frame1_on_start(
     contrib_df, contrib_winner_df,frame,stats_of_interest):
     players = list(cat_stat_df.columns)
     
-    header = frame1_header(frame,players[0],players[1],players[2],0)
+    header1 = frame1_header(frame,players[0],players[1],players[2],0)
     cats = {}
-
     for i,stat in enumerate(stats_of_interest):
         stat_vals = list(cat_stat_df.loc[stat])
         if stat != "Tov":
@@ -78,7 +82,7 @@ def initiate_frame1_on_start(
     players_sum = {}
 
     for i,player in enumerate(players):
-        players_sum[player] = create_row_summary(frame,player,cat_win_count_df.loc[player,"Category_wins"],i+12)
+        players_sum[str(i)] = create_row_summary(frame,player,cat_win_count_df.loc[player,"Category_wins"],i+12)
     
     button_average = tk.Button(frame,text="Season-Average",font=("ariel",15,"bold"))
     button_average.grid(row=12,column=0)
@@ -86,4 +90,8 @@ def initiate_frame1_on_start(
     button_last_5.grid(row=13,column=0)
     button_last_10 = tk.Button(frame,text="Last 10 games",font=("ariel",15,"bold"))
     button_last_10.grid(row=14,column=0)
+    return header1,cats,header_sum,players_sum
 
+def update_frame1_3p(frame,cat_stat_df,cat_win_count_df,f1_t1_head,f1_t1_body,f1_t2_body):
+    players = list(cat_stat_df.columns)
+    f1_t1_head = frame1_header_update(frame,players[0],players[1],players[2],f1_t1_head)
