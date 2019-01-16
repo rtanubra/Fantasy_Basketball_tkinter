@@ -24,6 +24,19 @@ def frame_2_create_row(frame,player,season_avg,last_10,last5,row_number):
     last_5_obj = tk.Label(frame,text=str(round(last5,2)),bd=8,bg="powder blue")
     last_5_obj.grid(row=row_number,column=3)
 
+def frame_2_table2_header(frame,row_number):
+    frame_2_table2_header1 = tk.Label(frame,text="Time Duration",font=("ariel",15,"bold"),bd=8)
+    frame_2_table2_header1.grid(row=row_number,column=0)
+    frame_2_table2_header2 = tk.Label(frame,text="Winning Player",font=("ariel",15,"bold"),bd=8)
+    frame_2_table2_header2.grid(row=row_number,column=1)
+    return [frame_2_table2_header1,frame_2_table2_header2]
+
+def frame_2_table2_create_row(frame,time_frame,player,row_number):
+    time_obj = tk.Label(frame,text=time_frame,bd=8,bg="powder blue")
+    time_obj.grid(row=row_number,column=0)
+    player_obj = tk.Label(frame,text=player,bd=8,bg="powder blue")
+    player_obj.grid(row=row_number,column=1)
+
 def initiate_frame2_on_start(
     cat_stat_df, cat_winner_df,cat_win_count_df, 
     cat_stat_df5, cat_winner_df5,cat_win_count_df5,
@@ -49,3 +62,14 @@ def initiate_frame2_on_start(
     #============Create frame2 table2 title ============#
     frame2_title = tk.Label(frame,text="Player Contribution Summary",font=("ariel",20,"bold"),bd=8)
     frame2_title.grid(row=len(players)+3, columnspan=3)
+
+    #============Create frame2 table2 header ============#
+    frame2_table2_title = frame_2_table2_header(frame,len(players)+4)
+
+    #============Create frame2 table2 rows ============#
+    time_durations = list(contrib_winner_df.index)
+    winners = list(contrib_winner_df["Winner"])
+    current_row = len(players)+5
+    for i in range(len(time_durations)):
+        frame_2_table2_create_row(frame,time_durations[i],winners[i],i+current_row)
+
