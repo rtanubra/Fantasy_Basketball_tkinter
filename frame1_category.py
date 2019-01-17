@@ -1,6 +1,8 @@
 import tkinter as tk
 import pandas as pd
 
+#========================== FUNCTIONS FOR CREATING HEADERS AND TABLES ============================
+        #***************Frame1 table1 header***************
 def frame1_header(frame,p1,p2,p3,row_number):
     objects = []
     head1 = tk.Label(frame,text="Category",font=("ariel",15,"bold"),bd=8)
@@ -21,26 +23,7 @@ def frame1_header(frame,p1,p2,p3,row_number):
     objects.append(head5)
 
     return objects
-def frame1_header_update(frame,p1,p2,p3,header_obj):
-    header_obj[1]["text"] = p1
-    header_obj[2]["text"] = p2
-    header_obj[3]["text"] = p3
-    return header_obj
-
-def frame1_summary_header(frame,row_number):
-    head_sum_1 = tk.Label(frame,text="Player",font=("ariel",15,"bold"),bd=8)
-    head_sum_1.grid(row=row_number,column=2)
-    head_sum_2 = tk.Label(frame,text="Category Win Count",font=("ariel",15,"bold"),bd=8)
-    head_sum_2.grid(row=row_number,column=3)
-    return [head_sum_1,head_sum_2]
-
-def create_row_summary(frame,p,count,row_number):
-    obj1 = tk.Label(frame,text=p,bd=8,bg="powder blue")
-    obj1.grid(row=row_number,column=2)
-    obj2 = tk.Label(frame,text=count,bd=8,bg="powder blue")
-    obj2.grid(row=row_number,column=3)
-    return [obj1,obj2]
-
+    #***************Frame1 table1 body***************
 def create_row(frame,cat,s1,s2,s3,winner,row_number):
     objects = []
     obj1 = tk.Label(frame,text=cat,bd=8,bg="powder blue")
@@ -61,7 +44,47 @@ def create_row(frame,cat,s1,s2,s3,winner,row_number):
     objects.append(obj5)
 
     return objects 
+        #***************Frame1 table2 header***************
+def frame1_summary_header(frame,row_number):
+    head_sum_1 = tk.Label(frame,text="Player",font=("ariel",15,"bold"),bd=8)
+    head_sum_1.grid(row=row_number,column=2)
+    head_sum_2 = tk.Label(frame,text="Category Win Count",font=("ariel",15,"bold"),bd=8)
+    head_sum_2.grid(row=row_number,column=3)
+    return [head_sum_1,head_sum_2]
 
+        #***************Frame1 table2 body***************
+def create_row_summary(frame,p,count,row_number):
+    obj1 = tk.Label(frame,text=p,bd=8,bg="powder blue")
+    obj1.grid(row=row_number,column=2)
+    obj2 = tk.Label(frame,text=count,bd=8,bg="powder blue")
+    obj2.grid(row=row_number,column=3)
+    return [obj1,obj2]
+
+#==============================FUNCTIONS TO UPDATE TABLES IN FRAME 1=======================
+              
+                #***************Frame1 table1 header***************
+def frame1_header_update(frame,p1,p2,p3,header_obj):
+    header_obj[1]["text"] = p1
+    header_obj[2]["text"] = p2
+    header_obj[3]["text"] = p3
+    return header_obj
+                
+                #***************Frame1 table1 body***************
+def frame1_update_body(frame,stat,s1,s2,s3,winner,body_obj):
+    body_obj[1]["text"] = str(round(s1,2))
+    body_obj[2]["text"] = str(round(s2,2))
+    body_obj[3]["text"] = str(round(s3,2))
+    body_obj[4]["text"] = winner
+
+                #***************Frame1 table2 body***************
+def frame1_update_body_summary(frame,players,counts,body_obj):
+    for i in range(len(players)):
+        body_obj[str(i)][0]["text"] = players[i]
+        body_obj[str(i)][1]["text"] = counts[i]
+    return body_obj
+
+
+#========================== FUNCTION INITIATED AT THE START TO DISPLAY SOME DATA PULLED OFFLINE (EARLIER) ============================
 def initiate_frame1_on_start(
     cat_stat_df, cat_winner_df,cat_win_count_df, 
     cat_stat_df5, cat_winner_df5,cat_win_count_df5,
@@ -92,6 +115,22 @@ def initiate_frame1_on_start(
     button_last_10.grid(row=14,column=0)
     return header1,cats,header_sum,players_sum
 
-def update_frame1_3p(frame,cat_stat_df,cat_win_count_df,f1_t1_head,f1_t1_body,f1_t2_body):
+def update_frame1_3p(frame,cat_stat_df,cat_win_count_df,f1_t1_head,f1_t1_body,f1_t2_body,stats_of_interest):
     players = list(cat_stat_df.columns)
     f1_t1_head = frame1_header_update(frame,players[0],players[1],players[2],f1_t1_head)
+    for i,stat in enumerate(stats_of_interest):
+        stat_scores = list(cat_stat_df.loc[stat])
+        print(stat_scores)
+        if stat != "Tov":
+            winner = players[stat_scores.index(max(stat_scores))]
+        else:
+            winner = players[stat_scores.index(min(stat_scores))]
+        f1_t1_body[stat] = frame1_update_body(frame,stat,stat_scores[0],stat_scores[1],stat_scores[2],winner,f1_t1_body[stat])
+    
+    #need to do this because the order of players are different from table to table
+    players = list(cat_win_count_df.index) 
+    cat_scores_summary = list(cat_win_count_df["Category_wins"])
+    f1_t2_body = frame1_update_body_summary(frame,players,cat_scores_summary,f1_t2_body)
+    return f1_t1_head,f1_t1_body,f1_t2_body 
+
+    print(cat_win_count_df)

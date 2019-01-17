@@ -98,7 +98,7 @@ class MainApplication(tk.Frame):
         print(f"Initializing Trade Analysis. Please wait: Analyzing {players_to_analyze}")
         players_to_analyze = list_into_string(players_to_analyze)
         self.cat_stat_df, self.cat_winner_df,self.cat_win_count_df,self.cat_stat_df5, self.cat_winner_df5,self.cat_win_count_df5,self.cat_stat_df10, self.cat_winner_df10,self.cat_win_count_df10,self.contrib_df, self.contrib_winner_df = run_functs(players_to_analyze,self.stats_of_interest)
-        self.f1_t1_head,self.f1_t1_body,self.f1_t2_head,self.f1_t2_body = update_frame1_3p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body)
+        self.f1_t1_head,self.f1_t1_body,self.f1_t2_head,self.f1_t2_body = update_frame1_3p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
 
 
 #===================Toggle Category breakdown Season/5/10==========================#
