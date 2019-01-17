@@ -75,7 +75,7 @@ class MainApplication(tk.Frame):
             cat_stat_df5, cat_winner_df5,cat_win_count_df5,
             cat_stat_df10, cat_winner_df10, cat_win_count_df10,
             contrib_df, contrib_winner_df,frame1,stats_of_interest)
-        initiate_frame2_on_start(
+        self.f2_t1_head,self.f2_t1_body,self.f2_t2_head,self.f2_t2_body =initiate_frame2_on_start(
             cat_stat_df, cat_winner_df,cat_win_count_df, 
             cat_stat_df5, cat_winner_df5,cat_win_count_df5,
             cat_stat_df10, cat_winner_df10, cat_win_count_df10,
@@ -99,7 +99,8 @@ class MainApplication(tk.Frame):
         players_to_analyze = list_into_string(players_to_analyze)
         self.cat_stat_df, self.cat_winner_df,self.cat_win_count_df,self.cat_stat_df5, self.cat_winner_df5,self.cat_win_count_df5,self.cat_stat_df10, self.cat_winner_df10,self.cat_win_count_df10,self.contrib_df, self.contrib_winner_df = run_functs(players_to_analyze,self.stats_of_interest)
         self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_3p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
-
+        self.f2_t1_body,self.f2_t2_body = frame_2_submit_3players(self.f2,self.contrib_df, self.contrib_winner_df,self.f2_t1_body,self.f2_t2_body)
+       
 
 #===================Toggle Category breakdown Season/5/10==========================#
 if __name__ == "__main__":
