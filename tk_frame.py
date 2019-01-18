@@ -101,7 +101,7 @@ class MainApplication(tk.Frame):
             self.f2_t1_body,self.f2_t2_body = frame_2_submit_3players(self.f2,self.contrib_df, self.contrib_winner_df,self.f2_t1_body,self.f2_t2_body)
         elif len(obtained) == 2:
             self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_2p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
-       
+            self.f2_t1_body,self.f2_t2_body = frame_2_submit_2players(self.f2,self.contrib_df, self.contrib_winner_df,self.f2_t1_body,self.f2_t2_body)
 
 #===================Toggle Category breakdown Season/5/10==========================#
     def toggle(self,time_frame):
