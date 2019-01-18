@@ -80,11 +80,6 @@ class MainApplication(tk.Frame):
             cat_stat_df5, cat_winner_df5,cat_win_count_df5,
             cat_stat_df10, cat_winner_df10, cat_win_count_df10,
             contrib_df, contrib_winner_df,frame2,stats_of_interest)
-    
-#==========================RIGHT f2 contribution points breakdown======================== 
-    def create_widgets_f2(self,frame2):
-        #this will create widgets to compare contribution points
-        pass
         
 #===================================SUBMIT FUNCTION============================
     def submit(self):
@@ -98,11 +93,21 @@ class MainApplication(tk.Frame):
         print(f"Initializing Trade Analysis. Please wait: Analyzing {players_to_analyze}")
         players_to_analyze = list_into_string(players_to_analyze)
         self.cat_stat_df, self.cat_winner_df,self.cat_win_count_df,self.cat_stat_df5, self.cat_winner_df5,self.cat_win_count_df5,self.cat_stat_df10, self.cat_winner_df10,self.cat_win_count_df10,self.contrib_df, self.contrib_winner_df = run_functs(players_to_analyze,self.stats_of_interest)
-        self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_3p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
-        self.f2_t1_body,self.f2_t2_body = frame_2_submit_3players(self.f2,self.contrib_df, self.contrib_winner_df,self.f2_t1_body,self.f2_t2_body)
+        #====================Perform check how many players we obtained===================#
+        obtained = list(self.cat_win_count_df.index)
+        #===============Call the correct function based on the number of players successfully obtained ===============================
+        if len(obtained)== 3:
+            self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_3p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
+            self.f2_t1_body,self.f2_t2_body = frame_2_submit_3players(self.f2,self.contrib_df, self.contrib_winner_df,self.f2_t1_body,self.f2_t2_body)
+        elif len(obtained) == 2:
+            self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_2p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
        
 
 #===================Toggle Category breakdown Season/5/10==========================#
+    def toggle(self,time_frame):
+        pass
+
+
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("NBA Fantasy Analysis App")

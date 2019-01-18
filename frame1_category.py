@@ -78,9 +78,17 @@ def frame1_update_body(frame,stat,s1,s2,s3,winner,body_obj):
 
                 #***************Frame1 table2 body***************
 def frame1_update_body_summary(frame,players,counts,body_obj):
-    for i in range(len(players)):
-        body_obj[str(i)][0]["text"] = players[i]
-        body_obj[str(i)][1]["text"] = counts[i]
+    if len(players) == 3:
+        for i in range(len(players)):
+            body_obj[str(i)][0]["text"] = players[i]
+            body_obj[str(i)][1]["text"] = counts[i]
+    else:
+        players.append("P3 Not-Applicable")
+        counts.append(0)
+        for i in range(len(players)):
+            body_obj[str(i)][0]["text"] = players[i]
+            body_obj[str(i)][1]["text"] = counts[i]
+
     return body_obj
 
 
@@ -115,6 +123,7 @@ def initiate_frame1_on_start(
     button_last_10.grid(row=14,column=0)
     return header1,cats,header_sum,players_sum
 
+#========================== SUBMIT FUNCTION WHEN PROVIDED 3 PLAYERS ============================
 def update_frame1_3p(frame,cat_stat_df,cat_win_count_df,f1_t1_head,f1_t1_body,f1_t2_body,stats_of_interest):
     players = list(cat_stat_df.columns)
     f1_t1_head = frame1_header_update(frame,players[0],players[1],players[2],f1_t1_head)
@@ -125,6 +134,24 @@ def update_frame1_3p(frame,cat_stat_df,cat_win_count_df,f1_t1_head,f1_t1_body,f1
         else:
             winner = players[stat_scores.index(min(stat_scores))]
         f1_t1_body[stat] = frame1_update_body(frame,stat,stat_scores[0],stat_scores[1],stat_scores[2],winner,f1_t1_body[stat])
+    
+    #need to do this because the order of players are different from table to table
+    players = list(cat_win_count_df.index) 
+    cat_scores_summary = list(cat_win_count_df["Category_wins"])
+    f1_t2_body = frame1_update_body_summary(frame,players,cat_scores_summary,f1_t2_body)
+    return f1_t1_head,f1_t1_body,f1_t2_body 
+
+#========================== SUBMIT FUNCTION WHEN PROVIDED 2 PLAYERS ============================
+def update_frame1_2p(frame,cat_stat_df,cat_win_count_df,f1_t1_head,f1_t1_body,f1_t2_body,stats_of_interest):
+    players = list(cat_stat_df.columns)
+    f1_t1_head = frame1_header_update(frame,players[0],players[1],"P3 Not-Applicable",f1_t1_head)
+    for i,stat in enumerate(stats_of_interest):
+        stat_scores = list(cat_stat_df.loc[stat])
+        if stat != "Tov":
+            winner = players[stat_scores.index(max(stat_scores))]
+        else:
+            winner = players[stat_scores.index(min(stat_scores))]
+        f1_t1_body[stat] = frame1_update_body(frame,stat,stat_scores[0],stat_scores[1],0,winner,f1_t1_body[stat])
     
     #need to do this because the order of players are different from table to table
     players = list(cat_win_count_df.index) 
