@@ -120,7 +120,6 @@ def update_frame1_3p(frame,cat_stat_df,cat_win_count_df,f1_t1_head,f1_t1_body,f1
     f1_t1_head = frame1_header_update(frame,players[0],players[1],players[2],f1_t1_head)
     for i,stat in enumerate(stats_of_interest):
         stat_scores = list(cat_stat_df.loc[stat])
-        print(stat_scores)
         if stat != "Tov":
             winner = players[stat_scores.index(max(stat_scores))]
         else:
@@ -132,5 +131,3 @@ def update_frame1_3p(frame,cat_stat_df,cat_win_count_df,f1_t1_head,f1_t1_body,f1
     cat_scores_summary = list(cat_win_count_df["Category_wins"])
     f1_t2_body = frame1_update_body_summary(frame,players,cat_scores_summary,f1_t2_body)
     return f1_t1_head,f1_t1_body,f1_t2_body 
-
-    print(cat_win_count_df)

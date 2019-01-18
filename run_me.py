@@ -28,7 +28,7 @@ def run_functs(input_names,stats_of_interest,number_games=None):
     """
     normalized_dfs = normalize_stats_sum(dfs,players_dict,stats_of_interest)
     contrib_df, contrib_winner_df = compare_player_contribution(normalized_dfs,players_dict,stats_of_interest)
-
+    """
     print("LAST 10 GAMES")
     print(cat_win_count_df10)
     print("\n")
@@ -46,6 +46,8 @@ def run_functs(input_names,stats_of_interest,number_games=None):
     print("ANALYZING CONTRIBUTIONS AS SINGLE NUMBER")
     print(contrib_df)
     print("\n")
+    print(contrib_winner_df)
+    """
     print(contrib_winner_df)
     return cat_stat_df, cat_winner_df,cat_win_count_df,cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10,cat_win_count_df10,contrib_df, contrib_winner_df
 

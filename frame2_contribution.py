@@ -17,7 +17,6 @@ def frame_2_header(frame,row_number):
 
             #*********Table1 body#*********
 def frame_2_create_row(frame,player,season_avg,last_10,last5,row_number):
-    row_obj = []
     player_obj = tk.Label(frame,text=player,bd=8,bg="powder blue")
     player_obj.grid(row=row_number,column=0)
     season_obj = tk.Label(frame,text=str(round(season_avg,2)),bd=8,bg="powder blue")
@@ -26,7 +25,7 @@ def frame_2_create_row(frame,player,season_avg,last_10,last5,row_number):
     last_10_obj.grid(row=row_number,column=2)
     last_5_obj = tk.Label(frame,text=str(round(last5,2)),bd=8,bg="powder blue")
     last_5_obj.grid(row=row_number,column=3)
-    return row_obj
+    return [player_obj,season_obj,last_10_obj,last_5_obj]
 
             #*********Table2 header#*********
 def frame_2_table2_header(frame,row_number):
@@ -42,18 +41,6 @@ def frame_2_table2_create_row(frame,time_frame,player,row_number):
     player_obj = tk.Label(frame,text=player,bd=8,bg="powder blue")
     player_obj.grid(row=row_number,column=1)
     return [time_obj,player_obj]
-
-
-#=======================FUCNTIONS TO UPDATE FRAME 2 TABLES (3-PLAYERS)#=======================
-                #*********Table1 body#*********
-def frame_2_update_row3p(frame,contrib_df,body_obj):
-    players = list(contrib_df.index)
-    for i in range(len(players)):
-        body_obj[str(i)][0]["text"] = players[i]
-        body_obj[str(i)][1]["text"] = contrib_df.loc[players[i],"Avg_Contrib"]
-        body_obj[str(i)][2]["text"] = contrib_df.loc[players[i],"Last10_Avg"]
-        body_obj[str(i)][3]["text"] = contrib_df.loc[players[i],"Last5_Avg"]
-    return body_obj
     
 
 #===================FUCNTION TO PRE-POPULATE FRAME 2 ON START#===================
@@ -93,11 +80,32 @@ def initiate_frame2_on_start(
     current_row = len(players)+5
     for i in range(len(time_durations)):
         frame2_table2_body[time_durations[i]]=frame_2_table2_create_row(frame,time_durations[i],winners[i],i+current_row)
-    
+    print(frame2_table2_body.keys())
     return frame2_table1_header,frame2_table1_rows,frame2_table2_header,frame2_table2_body
 
+#=======================FUCNTIONS TO UPDATE FRAME 2 TABLES (3-PLAYERS)#=======================
+                #*********Table1 body#*********
+def frame_2_update_t1_row3p(frame,contrib_df,body_obj):
+    players = list(contrib_df["Player_Name"])
+    Avg_Contribs = list(contrib_df["Avg_Contrib"])
+    Last10_Avgs = list(contrib_df["Last10_Avg"])
+    Last5_Avgs = list(contrib_df["Last5_Avg"])
+    for i in range(len(players)):
+        body_obj[str(i)][0]["text"] = players[i]
+        body_obj[str(i)][1]["text"] = round(Avg_Contribs[i],2)
+        body_obj[str(i)][2]["text"] = round(Last10_Avgs[i],2)
+        body_obj[str(i)][3]["text"] = round(Last5_Avgs[i],2)
+    return body_obj
+
+def frame_2_update_t2_row3p(frame,contrib_winner_df,body_obj):
+    winners = list(contrib_winner_df["Winner"])
+    time_duration = list(contrib_winner_df.index)
+    for i,x in enumerate(time_duration):
+        body_obj[x][1]["text"]= winners[i]
+    return body_obj
 
 #===================FUCNTION CALLED ON SUBMIT (DISPLAY ANALYSIS OF CALLED DATE)#===================
 def frame_2_submit_3players(frame,contrib_df,contrib_winner_df,f2_t1_body,f2_t2_body):
-    f2_t1_body = frame_2_update_row3p(frame,contrib_df,f2_t1_body)
+    f2_t1_body = frame_2_update_t1_row3p(frame,contrib_df,f2_t1_body)
+    f2_t2_body = frame_2_update_t2_row3p(frame,contrib_winner_df,f2_t2_body)
     return f2_t1_body,f2_t2_body
