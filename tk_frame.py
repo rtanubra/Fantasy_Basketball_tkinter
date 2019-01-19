@@ -71,9 +71,9 @@ class MainApplication(tk.Frame):
         self.button_average = tk.Button(frame,text="Season-Average",font=("ariel",15,"bold"),command=lambda: self.toggle("avg"))
         self.button_average.grid(row=3,column=0)
         self.button_last_5 = tk.Button(frame,text="Last 5 Games",font=("ariel",15,"bold"),command=lambda: self.toggle("5"))
-        self.button_last_5.grid(row=3,column=1)
+        self.button_last_5.grid(row=3,column=2)
         self.button_last_10 = tk.Button(frame,text="Last 10 games",font=("ariel",15,"bold"),command=lambda: self.toggle("10"))
-        self.button_last_10.grid(row=3,column=2)
+        self.button_last_10.grid(row=3,column=1)
 
         self.status_label = tk.Label(frame,text="Status:",bd=8,font=("ariel",15,"bold"),relief="sunken",bg="grey")
         self.status_label.grid(row=4,column=0)
