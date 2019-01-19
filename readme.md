@@ -35,13 +35,17 @@ The goal of this application is to allow NBA Fantasy GMs to analyze potential pl
 
     
 DEPENDENCIES AND MUST INSTALLS/SUBSCRIBES:
+
     MYSPORTSFEEDS: https://www.mysportsfeeds.com/
+    
         1. NBA Api key can be obtained for free. 
             This is required to pull game logs for the application.
+            
         2. ohmysportsfeedspy 
         https://github.com/MySportsFeeds/mysportsfeeds-python/blob/master/README.md
             A wrapper used to make calls to my sports feeds api much
             easier. Used in this application to pull game logs.
+    
     PANDAS & NUMPY
         numpy and pandas are both required to run this application.
         Used to easily work with the data pulled from my sports feeds. 
@@ -51,6 +55,7 @@ RUNNING THE APPLICATION:
     on your command prompt run:
 
         1. navigate to the directory
+        
         2. run: python3 tk_frame.py
 
 METHOD:
@@ -96,6 +101,7 @@ METHOD:
             highest contribution average.
     
     TKINTER STUFF
+    
     4. frame1_category.py
         this houses all the functions that are used to modify tkinter
         frame 1. At present, frame 1 used to display category stats.
