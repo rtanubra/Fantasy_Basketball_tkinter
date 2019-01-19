@@ -117,13 +117,14 @@ def initiate_frame1_on_start(
 
     for i,player in enumerate(players):
         players_sum[str(i)] = create_row_summary(frame,player,cat_win_count_df.loc[player,"Category_wins"],i+12)
-    
+    """
     button_average = tk.Button(frame,text="Season-Average",font=("ariel",15,"bold"))
     button_average.grid(row=12,column=0)
     button_last_5 = tk.Button(frame,text="Last 5 Games",font=("ariel",15,"bold"))
     button_last_5.grid(row=13,column=0)
     button_last_10 = tk.Button(frame,text="Last 10 games",font=("ariel",15,"bold"))
     button_last_10.grid(row=14,column=0)
+    """
     return header1,cats,header_sum,players_sum
 
 #========================== SUBMIT FUNCTION WHEN PROVIDED 3 PLAYERS ============================
