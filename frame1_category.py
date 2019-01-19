@@ -71,10 +71,13 @@ def frame1_header_update(frame,p1,p2,p3,header_obj):
                 
                 #***************Frame1 table1 body***************
 def frame1_update_body(frame,stat,s1,s2,s3,winner,body_obj):
+
     body_obj[1]["text"] = str(round(s1,2))
     body_obj[2]["text"] = str(round(s2,2))
     body_obj[3]["text"] = str(round(s3,2))
     body_obj[4]["text"] = winner
+
+    return body_obj
 
                 #***************Frame1 table2 body***************
 def frame1_update_body_summary(frame,players,counts,body_obj):
@@ -127,6 +130,7 @@ def initiate_frame1_on_start(
 def update_frame1_3p(frame,cat_stat_df,cat_win_count_df,f1_t1_head,f1_t1_body,f1_t2_body,stats_of_interest):
     players = list(cat_stat_df.columns)
     f1_t1_head = frame1_header_update(frame,players[0],players[1],players[2],f1_t1_head)
+
     for i,stat in enumerate(stats_of_interest):
         stat_scores = list(cat_stat_df.loc[stat])
         if stat != "Tov":
@@ -134,7 +138,7 @@ def update_frame1_3p(frame,cat_stat_df,cat_win_count_df,f1_t1_head,f1_t1_body,f1
         else:
             winner = players[stat_scores.index(min(stat_scores))]
         f1_t1_body[stat] = frame1_update_body(frame,stat,stat_scores[0],stat_scores[1],stat_scores[2],winner,f1_t1_body[stat])
-    
+ 
     #need to do this because the order of players are different from table to table
     players = list(cat_win_count_df.index) 
     cat_scores_summary = list(cat_win_count_df["Category_wins"])

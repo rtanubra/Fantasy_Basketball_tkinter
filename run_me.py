@@ -48,7 +48,6 @@ def run_functs(input_names,stats_of_interest,number_games=None):
     print("\n")
     print(contrib_winner_df)
     """
-    print(contrib_winner_df)
     return cat_stat_df, cat_winner_df,cat_win_count_df,cat_stat_df5, cat_winner_df5,cat_win_count_df5,cat_stat_df10, cat_winner_df10,cat_win_count_df10,contrib_df, contrib_winner_df
 
 """

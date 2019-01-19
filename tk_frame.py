@@ -31,6 +31,7 @@ class MainApplication(tk.Frame):
         
         self.create_widgets_Tops(self.Tops)
         self.create_widgets_f1_f2_start(self.f1,self.f2)
+        self.count = 0 #Submit clicks
 
 #=============Initialize necessary variables for analyzis=====================#
         self.stats_of_interest = ["Reb","Ast","Pts","Tov","Stl","Blk","FgPct","FtPct","Fg3PtMade"]
@@ -83,6 +84,7 @@ class MainApplication(tk.Frame):
         
 #===================================SUBMIT FUNCTION============================
     def submit(self):
+        self.count += 1
         players_to_analyze = []
         if self.player1_inp.get() != "":
             players_to_analyze.append(self.player1_inp.get())
@@ -93,6 +95,7 @@ class MainApplication(tk.Frame):
         print(f"Initializing Trade Analysis. Please wait: Analyzing {players_to_analyze}")
         players_to_analyze = list_into_string(players_to_analyze)
         self.cat_stat_df, self.cat_winner_df,self.cat_win_count_df,self.cat_stat_df5, self.cat_winner_df5,self.cat_win_count_df5,self.cat_stat_df10, self.cat_winner_df10,self.cat_win_count_df10,self.contrib_df, self.contrib_winner_df = run_functs(players_to_analyze,self.stats_of_interest)
+#============CLEAN THIS UP JUST BUGGY FIXING
         #====================Perform check how many players we obtained===================#
         obtained = list(self.cat_win_count_df.index)
         #===============Call the correct function based on the number of players successfully obtained ===============================

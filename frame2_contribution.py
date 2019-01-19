@@ -118,5 +118,5 @@ def frame_2_submit_3players(frame,contrib_df,contrib_winner_df,f2_t1_body,f2_t2_
 
 def frame_2_submit_2players(frame,contrib_df,contrib_winner_df,f2_t1_body,f2_t2_body):
     f2_t1_body = frame_2_update_t1_row3p(frame,contrib_df,f2_t1_body)
-    #f2_t2_body = frame_2_update_t2_row3p(frame,contrib_winner_df,f2_t2_body)
+    f2_t2_body = frame_2_update_t2_row3p(frame,contrib_winner_df,f2_t2_body)
     return f2_t1_body,f2_t2_body
