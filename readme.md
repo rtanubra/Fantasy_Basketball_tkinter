@@ -47,11 +47,14 @@ DEPENDENCIES AND MUST INSTALLS/SUBSCRIBES:
         Used to easily work with the data pulled from my sports feeds. 
 
 RUNNING THE APPLICATION:
+
     on your command prompt run:
-    1. navigate to the directory
-    2. run: python3 tk_frame.py
+
+        1. navigate to the directory
+        2. run: python3 tk_frame.py
 
 METHOD:
+
     0. .gitignore:
         I.create a directory called inputs
         II.create inputs/msf.txt
