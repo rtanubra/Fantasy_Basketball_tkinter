@@ -41,7 +41,7 @@ class MainApplication(tk.Frame):
     def create_widgets_Tops(self,frame):
         #this will create widgets for name inputs
         self.title = tk.Label(frame,text="Input player names for analysis",fg="black",bd=10,anchor="w",font=("ariel",20,"bold"))
-        self.title.grid(row=0,column=3)
+        self.title.grid(row=0,column=2,columnspan=3)
 
         self.player1_label =tk.Label(frame,text="Player 1")
         self.player1_label.grid(row=1,column=0)
@@ -49,23 +49,36 @@ class MainApplication(tk.Frame):
         self.player1_inp.grid(row=1,column=1)
        
         self.player2_label =tk.Label(frame,text="Player 2")
-        self.player2_label.grid(row=2,column=0)
+        self.player2_label.grid(row=1,column=2)
         self.player2_inp = tk.Entry(frame)
-        self.player2_inp.grid(row=2,column=1)
+        self.player2_inp.grid(row=1,column=3)
 
         self.player3_label= tk.Label(frame,text="Player 3")
-        self.player3_label.grid(row=3,column=0)
+        self.player3_label.grid(row=1,column=4)
         self.player3_inp = tk.Entry(frame)
-        self.player3_inp.grid(row=3, column=1)
+        self.player3_inp.grid(row=1, column=5)
 
         self.submit = tk.Button(
             frame, text = "SUBMIT", fg= "green",command = self.submit
         )
-        self.submit.grid(row=3,column=2) 
+        self.submit.grid(row=3,column=3) 
 
         self.quit = tk.Button(frame, text="QUIT", fg="red",
                               command=self.master.destroy)
-        self.quit.grid(row=4,column=2)
+        self.quit.grid(row=3,column=4)
+        #=====================Frame1 buttons to toggle avg v 5 v 10
+        self.state= "avg"
+        self.button_average = tk.Button(frame,text="Season-Average",font=("ariel",15,"bold"),command=lambda: self.toggle("avg"))
+        self.button_average.grid(row=3,column=0)
+        self.button_last_5 = tk.Button(frame,text="Last 5 Games",font=("ariel",15,"bold"),command=lambda: self.toggle("5"))
+        self.button_last_5.grid(row=3,column=1)
+        self.button_last_10 = tk.Button(frame,text="Last 10 games",font=("ariel",15,"bold"),command=lambda: self.toggle("10"))
+        self.button_last_10.grid(row=3,column=2)
+
+        self.status_label = tk.Label(frame,text="Status:",bd=8,font=("ariel",15,"bold"),relief="sunken",bg="grey")
+        self.status_label.grid(row=4,column=0)
+        self.status = tk.Label(frame,text="Input player names for analysis and hit Submit",bd=8,font=("ariel",15,"bold"),relief="sunken",bg="grey")
+        self.status.grid(row=4,column=1,columnspan=3)
 
 #==========================Initiate Frame 1 and Frame 2 at the start========================   
     def create_widgets_f1_f2_start(self,frame1,frame2):
@@ -81,6 +94,7 @@ class MainApplication(tk.Frame):
             cat_stat_df5, cat_winner_df5,cat_win_count_df5,
             cat_stat_df10, cat_winner_df10, cat_win_count_df10,
             contrib_df, contrib_winner_df,frame2,stats_of_interest)
+        """
         #=====================Frame1 buttons to toggle avg v 5 v 10
         self.state= "avg"
         self.button_average = tk.Button(frame1,text="Season-Average",font=("ariel",15,"bold"),command=lambda: self.toggle("avg"))
@@ -89,6 +103,7 @@ class MainApplication(tk.Frame):
         self.button_last_5.grid(row=13,column=0)
         self.button_last_10 = tk.Button(frame1,text="Last 10 games",font=("ariel",15,"bold"),command=lambda: self.toggle("10"))
         self.button_last_10.grid(row=14,column=0)
+        """
         
 #===================================SUBMIT FUNCTION============================
     def submit(self):
@@ -108,9 +123,11 @@ class MainApplication(tk.Frame):
         obtained = list(self.cat_win_count_df.index)
         #===============Call the correct function based on the number of players successfully obtained ===============================
         if len(obtained)== 3:
+            self.status["text"] = "Analyzing 3 players, displaying seaseon averages"
             self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_3p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
             self.f2_t1_body,self.f2_t2_body = frame_2_submit_3players(self.f2,self.contrib_df, self.contrib_winner_df,self.f2_t1_body,self.f2_t2_body)
         elif len(obtained) == 2:
+            self.status["text"] = "Analyzing 2 players, displaying seaseon averages"
             self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_2p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
             self.f2_t1_body,self.f2_t2_body = frame_2_submit_2players(self.f2,self.contrib_df, self.contrib_winner_df,self.f2_t1_body,self.f2_t2_body)
 
@@ -122,18 +139,24 @@ class MainApplication(tk.Frame):
             obtained = list(self.cat_win_count_df.index)
             if time_frame == "avg":
                 if len(obtained)== 3:
+                    self.status["text"] = "Analyzing 3 players, displaying seaseon averages"
                     self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_3p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
-                elif len(obtained) == 2:   
+                elif len(obtained) == 2:  
+                    self.status["text"] = "Analyzing 2 players, displaying seaseon averages"
                     self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_2p(self.f1,self.cat_stat_df,self.cat_win_count_df,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
             elif time_frame == "5":
                 if len(obtained)== 3:
+                    self.status["text"] = "Analyzing 3 players, displaying last 5 games"
                     self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_3p(self.f1,self.cat_stat_df5,self.cat_win_count_df5,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
                 elif len(obtained) == 2:
+                    self.status["text"] = "Analyzing 2 players, displaying last 5 games"
                     self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_2p(self.f1,self.cat_stat_df5,self.cat_win_count_df5,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
             else:
                 if len(obtained)== 3:
+                    self.status["text"] = "Analyzing 3 players, displaying last 10 games"
                     self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_3p(self.f1,self.cat_stat_df10,self.cat_win_count_df10,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
                 elif len(obtained) == 2:
+                    self.status["text"] = "Analyzing 3 players, displaying last 10 games"
                     self.f1_t1_head,self.f1_t1_body,self.f1_t2_body = update_frame1_2p(self.f1,self.cat_stat_df10,self.cat_win_count_df10,self.f1_t1_head,self.f1_t1_body,self.f1_t2_body,self.stats_of_interest)
 
 
